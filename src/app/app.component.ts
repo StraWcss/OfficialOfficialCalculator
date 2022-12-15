@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SocketService } from './services/socket.service';
 import { SignalrService } from './signalr.service';
 
 @Component({
@@ -6,9 +7,14 @@ import { SignalrService } from './signalr.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  constructor(private signalRService: SignalrService ){
+export class AppComponent implements OnInit {
+  constructor(private signalRService: SignalrService, private socketService: SocketService ){
     this.signalRService.start();
   }
   title = 'OnlineCalculator';
+
+  ngOnInit(): void {
+    this.socketService.sendInput()
+    this.socketService.
+  }
 }
