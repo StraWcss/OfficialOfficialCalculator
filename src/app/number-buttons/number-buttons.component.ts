@@ -10,6 +10,8 @@ export class NumberButtonsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("I can't") 
   }
 
 }
+
