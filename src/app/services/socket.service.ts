@@ -1,23 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
+import { map } from 'rxjs';
 
-export interface InputData {
-	userId: string,
-	input: string
-}
+export interface Data{
+	sentTotal: string,
+	sentEquation: string
+  }
+
 @Injectable({
 	providedIn: 'root'
 })
 export class SocketService {
-	constructor(private socket: Socket) { }
+	constructor(private socket: Socket) {
+		this.socket.fromEvent('input')
+	 }
+
+	 currentData = this.socket.fromEvent<any>('input');
 
 	// emit event
 	sendInput(data: any) {
-		this.socket.emit('sendNumber', {data});
+		console.log("sent!");
+		this.socket.emit('input', data);
 	} 
 
 	// listen event
-	onFetchMovies() {
-		return this.socket.fromEvent('fetchNumber');
+	fetchData() :  any {
+		console.log("onFetch");
+		console.log("TEST!")
+		return this.socket.fromEvent('input').pipe(map((data: any) => {
+			console.log('ssssss')
+			return data;
+			})).subscribe();
 	}
 }

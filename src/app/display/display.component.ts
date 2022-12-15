@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Data, SocketService } from '../services/socket.service';
+
 
 @Component({
   selector: 'app-display',
@@ -7,80 +9,75 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DisplayComponent implements OnInit {
   
-  total: number = 0;
-  history: string = ""
-
-  firstNumber: number | null = null;
-  secondNumber: number | null = null;
-  selectedNumber: number | null = null; // 0 - 9 
-  selectedOperation: string | null = ''; // * + - / 
-  constructor() { }
+  total: string = "";
+  equation: string = ""
+  
+  constructor(private socketService: SocketService) { 
+    
+  }
 
   ngOnInit(): void {
+    this.socketService.currentData.subscribe((data: any) => {
+      console.log("Just got new data bro");
+      this.total = data.sentTotal;
+      this.equation = data.sentEquation;
+    })
 
-    
+    this.socketService.fetchData().subscribe((data: Data) => {
+      console.log("Just got new data bro");
+      this.total = data.sentTotal;
+      this.equation = data.sentEquation;
+    });
   }
 
   
   onNumClick(number: number) {
 
+    this.equation = this.equation.concat(number.toString());
 
-    this.selectedNumber = number;
-    this.history = this.history.concat(" " + this.selectedNumber.toString());
-
+    this.socketService.sendInput({
+      sentEquation: this.equation,
+      sentTotal: this.total
+    } )
     
 
-    console.log(this.history);
-    console.log(this.selectedNumber)
+
+   
+  }
+
+  clear(){
+    this.equation = "";
+    this.total = "";
+
+    this.socketService.sendInput({
+      sentEquation: "",
+      sentTotal: ""
+    } )
+    
+
   }
 
   onOperatorClick(operator: string){ // operator = + 
-    if(this.selectedNumber == null){ 
-      //We want to do nothing
-      return
-    }
-    //And if it isn't nothing, we do this:
+    this.equation = this.equation.concat(operator);
 
-    let addToHistory = true;
-   
-
-    if(addToHistory){
-
-      this.history = this.history + " " + operator
-    }
+    this.socketService.sendInput({
+      sentEquation: this.equation,
+      sentTotal: this.total
+    } )
 
   }
 
-  calculateTotal() {
+  calculate(){
+    this.total = eval(this.equation); //"1 + 3 / 3 * 2341 + 2134 +  82"
 
-    switch(this.selectedOperation){
-      case "+":
-      //this.total += this.selectedNumber?
-      //Here
-        break;
-        
-      case "-":
-      //this.total += this.selectedNumber?
-        break;
-      case "/":
+    this.socketService.sendInput({
+      sentEquation: this.equation,
+      sentTotal: this.total
+    } )
+    
+  }
 
-        break;
-      case "*":
-
-        break;
-
-      case "=":
-
-        break;
-
-      case "clear":
-        this.total = 0;
-        this.history = "";
-        this.selectedNumber = null;
-        this.selectedOperation = null;
   
-        break;
-    }
   }
 
   //We need to make it so when you hit buttons, we keep track of buttons pressed 
@@ -94,7 +91,7 @@ export class DisplayComponent implements OnInit {
 
   //
 
-}
+
 
 
 

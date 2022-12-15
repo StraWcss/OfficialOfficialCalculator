@@ -2,7 +2,8 @@
     
 <div class="total"></div>
 
-<h1>{{history}}</h1>
+
+<h1>{{equation}}</h1>
 <h2>{{total}}</h2>
 <div class="container">
         <div class="Calculator dark">
@@ -20,35 +21,32 @@
             <div class="history"></div>
            
             <tr>
-                
-
-                
-                <td><button class="btn-operator" (click)="onOperatorClick('clear')" id="clear">C</button></td>
-                <td><button class="btn-operator" id="/">&divide;</button></td>
-                <td><button class="btn-operator" id="*">&times;</button></td>
+                <td><button class="btn-operator" (click)="clear()" id="clear">C</button></td>
+                <td><button class="btn-operator" (click)="onOperatorClick('/')" id="/">&divide;</button></td>
+                <td><button class="btn-operator" (click)="onOperatorClick('*')"id="*">&times;</button></td>
                 <td><button class="btn-operator" id="Backspace"></button></td>
             </tr>
             <tr>
                 <td><button class="btn-number" (click)="onNumClick(7)" id="7">7</button></td>
                 <td><button class="btn-number" (click)="onNumClick(8)" id="8">8</button></td>
-                <td><button class="btn-number" id="9">9</button></td>
+                <td><button class="btn-number" (click)="onNumClick(9)" id="9">9</button></td>
                 <td><button class="btn-operator" (click)="onOperatorClick('-')" id="-">-</button></td>
             </tr>
             <tr>
-                <td><button class="btn-number" id="4">4</button></td>
-                <td><button class="btn-number" id="5">5</button></td>
-                <td><button class="btn-number" id="6">6</button></td>
+                <td><button class="btn-number" (click)="onNumClick(4)" id="4">4</button></td>
+                <td><button class="btn-number" (click)="onNumClick(5)" id="5">5</button></td>
+                <td><button class="btn-number" (click)="onNumClick(6)" id="6">6</button></td>
                 <td><button class="btn-operator" (click)="onOperatorClick('+')" id="+">+</button></td>
             </tr>
             <tr>
-                <td><button class="btn-number" id="1">1</button></td>
-                <td><button class="btn-number" id="2">2</button></td>
-                <td><button class="btn-number" id="3">3</button></td>
-                <td rowspan="2"><button class="btn-equal" id="equal">=</button></td>
+                <td><button class="btn-number" (click)="onNumClick(1)" id="1">1</button></td>
+                <td><button class="btn-number" (click)="onNumClick(2)" id="2">2</button></td>
+                <td><button class="btn-number" (click)="onNumClick(3)" id="3">3</button></td>
+                <td rowspan="2"><button class="btn-equal" (click)="calculate()"id="equal">=</button></td>
             </tr>
             <tr>
                 <td><button class="btn-operator" id="(">(</button></td>
-                <td><button class="btn-number" id="0">0</button></td>
+                <td><button class="btn-number" (click)="onNumClick(0)" id="0">0</button></td>
                 <td><button class="btn-operator" id=")">)</button></td>
             </tr>
         </table>
