@@ -14,7 +14,5 @@ export class AppComponent implements OnInit {
   title = 'OnlineCalculator';
 
   ngOnInit(): void {
-    this.socketService.sendInput()
-    this.socketService.
   }
 }

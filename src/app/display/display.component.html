@@ -2,6 +2,8 @@
     
 
 
+<h1>{{history}}</h1>
+<h2>{{total}}</h2>
 <div class="container">
         <div class="Calculator dark">
             <div class="theme-toggler active">
@@ -13,22 +15,22 @@
         <div class="buttons"></div>
         <table>
             <tr>
-                <td><button class="btn-operator" id="clear">C</button></td>
+                <td><button class="btn-operator" (click)="onOperatorClick('clear')" id="clear">C</button></td>
                 <td><button class="btn-operator" id="/">&divide;</button></td>
                 <td><button class="btn-operator" id="*">&times;</button></td>
                 <td><button class="btn-operator" id="Backspace"></button></td>
             </tr>
             <tr>
-                <td><button class="btn-number" id="7">7</button></td>
-                <td><button class="btn-number" id="8">8</button></td>
+                <td><button class="btn-number" (click)="onNumClick(7)" id="7">7</button></td>
+                <td><button class="btn-number" (click)="onNumClick(8)" id="8">8</button></td>
                 <td><button class="btn-number" id="9">9</button></td>
-                <td><button class="btn-operator" id="-">-</button></td>
+                <td><button class="btn-operator" (click)="onOperatorClick('-')" id="-">-</button></td>
             </tr>
             <tr>
                 <td><button class="btn-number" id="4">4</button></td>
                 <td><button class="btn-number" id="5">5</button></td>
                 <td><button class="btn-number" id="6">6</button></td>
-                <td><button class="btn-operator" id="+">+</button></td>
+                <td><button class="btn-operator" (click)="onOperatorClick('+')" id="+">+</button></td>
             </tr>
             <tr>
                 <td><button class="btn-number" id="1">1</button></td>
